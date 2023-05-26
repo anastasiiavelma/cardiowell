@@ -70,6 +70,7 @@ app.post('/notes', checkAuth, notesCreateValidation, NoteController.create);
 app.delete('/notes/:id',checkAuth,NoteController.remove);
 app.patch('/notes/:id',checkAuth, NoteController.update);
 
+
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });

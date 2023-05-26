@@ -13,16 +13,17 @@ const MedicalCardSchema = new mongoose.Schema({
         address: {
             type: String,
         },
+        weight: {
+            type: String,
+        },
         dateOfDiseaseOnset: {
             type: String,
         },
+
         performedOperations:{
             type: String,
         },
         performedProcedures:{
-            type: String,
-        },
-        weight: {
             type: String,
         },
         medicalPreparations: [{

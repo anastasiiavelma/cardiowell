@@ -1,0 +1,67 @@
+.root {
+  background-color: #fff;
+  padding: 30px 0; /* Increase the top and bottom padding */
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 30px;
+  box-shadow: 1px 10px 20px #021731;
+
+}
+
+
+
+.inner {
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
+.logo {
+  color: #003366;
+  font-weight: 700;
+  line-height: 35px;
+  text-transform: uppercase;
+  letter-spacing: 0.15px;
+  border-radius: 5px;
+  padding: 0 10px;
+  text-decoration: none;
+  font-size: 30px; /* Increase the font size as desired */
+
+  &:hover {
+    line-height: 35px;
+    border-radius: 50px;
+  }
+
+  &:active {
+    color: #ff6700;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: inherit; /* Align items vertically */
+}
+
+.buttons button {
+
+  margin-left: 10px;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.buttons a {
+  text-decoration: none;
+  border-radius: 20px;
+
+}
+
+.navbarItems {
+  margin-right: 350px;
+  display: flex;
+  align-items: center; /* Align items vertically */
+  margin-left: 10px; /* Add left margin */
+}
+
+.navbarItems a {
+  margin-right: 10px; /* Add right margin between items */
+  text-decoration: none;
+
+}

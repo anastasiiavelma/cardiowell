@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="61e9db2e-591b-4e54-8a60-f3f3b68e155a" name="Changes" comment="" />
+    <list default="true" id="2fd87abd-c4dd-4d1f-b112-a82d920fedf0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +13,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2Oc3HVDb9D8fh1ST1OQXe1eEhe4" />
+  <component name="ProjectId" id="2PpwfXBRadAH3pQwxMbyW3pBFUz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,42 +25,32 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\cardiowell\\project\\frontend\\node_modules\\prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\WebStorm 2022.2.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\cardiowell\project\backend\models\Device" />
+      <recent name="D:\cardiowell\project\frontend\src\Images" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="61e9db2e-591b-4e54-8a60-f3f3b68e155a" name="Changes" comment="" />
-      <created>1681845957024</created>
+      <changelist id="2fd87abd-c4dd-4d1f-b112-a82d920fedf0" name="Changes" comment="" />
+      <created>1684167435136</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1681845957024</updated>
-      <workItem from="1681845959724" duration="39000" />
-      <workItem from="1681846010011" duration="88000" />
-      <workItem from="1681846173756" duration="739000" />
-      <workItem from="1682011792107" duration="3025000" />
-      <workItem from="1682014977254" duration="23000" />
-      <workItem from="1682326327223" duration="2476000" />
-      <workItem from="1682328908109" duration="9066000" />
-      <workItem from="1682338868966" duration="1027000" />
-      <workItem from="1682408487951" duration="10075000" />
-      <workItem from="1683191147712" duration="2692000" />
-      <workItem from="1683799054261" duration="13702000" />
-      <workItem from="1683885909603" duration="1170000" />
-      <workItem from="1683888998863" duration="1335000" />
-      <workItem from="1684139596242" duration="2570000" />
-      <workItem from="1684167092479" duration="933000" />
-      <workItem from="1684405675516" duration="869000" />
-      <workItem from="1684413862895" duration="2859000" />
-      <workItem from="1684834544067" duration="1828000" />
-      <workItem from="1684953367171" duration="625000" />
-      <workItem from="1685092141232" duration="2993000" />
+      <updated>1684167435136</updated>
+      <workItem from="1684167436530" duration="1344000" />
+      <workItem from="1684230968193" duration="1520000" />
+      <workItem from="1684312593444" duration="8249000" />
+      <workItem from="1684343820632" duration="3443000" />
+      <workItem from="1684348369371" duration="630000" />
+      <workItem from="1684399416777" duration="8899000" />
+      <workItem from="1684413574140" duration="15382000" />
+      <workItem from="1685092147052" duration="6214000" />
     </task>
     <servers />
   </component>
@@ -82,14 +72,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/controllers/MedicalCardController.mjs</url>
-          <line>65</line>
+          <url>file://$PROJECT_DIR$/src/pages/Home.js</url>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/controllers/PostController.mjs</url>
-          <line>63</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -87,7 +87,19 @@ export const create = async (req, res) => {
 
     try {
         const medicalCard = new MedicalCardModel({
-            ...body,
+            age: body.age,
+            birth: body.birth,
+            phoneNumber: body.phoneNumber,
+            address: body.address,
+            weight: body.weight,
+            dateOfDiseaseOnset: body.dateOfDiseaseOnset,
+            performedOperations: body.performedOperations,
+            performedProcedures: body.performedProcedures,
+            medicalPreparations: body.medicalPreparations,
+            bloodType: body.bloodType,
+            diagnosis: body.diagnosis,
+            diseaseSeverity: body.diseaseSeverity,
+            allergies: body.allergies,
             user: userId,
         });
         const savedMedicalCard = await medicalCard.save();
@@ -101,5 +113,6 @@ export const create = async (req, res) => {
         });
     }
 };
+
 
 
