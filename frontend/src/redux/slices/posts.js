@@ -6,10 +6,37 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     return data;
 });
 
+export const fetchRemovePost = createAsyncThunk('posts/fetchRemovePost', async (id) => axios.delete(`/posts/${id}`)
+);
+
+export const fetchPostsByDay = createAsyncThunk('posts/fetchPostsByDay', async (createdAt) => {
+    console.log('Fetching posts by day...');
+    try {
+        const { data } = await axios.get(`/all-post`);
+        console.log('Posts fetched by day:', data);
+
+        // Filter the data array based on the createdAt date
+        const post = data.find((post) => post._id === createdAt);
+
+        if (post) {
+            console.log('Post count:', post.count);
+            return post.count;
+        } else {
+            console.log('Post not found for the given date.');
+            return 0; // or handle the case where the post is not found
+        }
+    } catch (error) {
+        console.error('Error fetching posts by day:', error);
+        throw error;
+    }
+});
+
+
+
 const initialState = {
     posts: {
         items: [],
-        status: 'loading'
+        status: 'loading',
     },
 }
 
@@ -29,9 +56,10 @@ const postsSlice = createSlice({
             state.posts.items = [];
             state.posts.status = 'error';
         },
-        // [fetchRemovePost.pending]: (state, action) => {
-        //     state.posts.items = state.posts.items.filter((obj) => obj._id !== action.meta.arg)
-        // },
+        [fetchRemovePost.pending]: (state, action) => {
+            state.posts.items = state.posts.items.filter((obj) => obj._id !== action.meta.arg)
+        },
+
     },
 
 })

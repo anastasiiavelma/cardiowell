@@ -3,13 +3,15 @@ import Grid from '@mui/material/Grid';
 import {useDispatch, useSelector} from 'react-redux';
 import { Post } from '../components';
 import {fetchPosts} from "../redux/slices/posts";
+import {Navigate} from "react-router-dom";
 
 
 export const Home = () => {
     const dispatch = useDispatch();
     const {posts} = useSelector(state => state.posts)
-
     const isPostLoading = posts.status === 'Loading';
+
+
 
     React.useEffect(() => {
         dispatch(fetchPosts());
@@ -33,7 +35,7 @@ export const Home = () => {
                     ))}
                 </Grid>
                 <Grid item xs={4} container justifyContent="space-between">
-                    <img src='doctor3.png' alt='Works' style={{ float: 'right', marginLeft: '150px', marginTop: '50px', width: "400px", height: "350px"  }} />
+                    <img src='images/doctor3.png' alt='Works' style={{ float: 'right', marginLeft: '150px', marginTop: '50px', width: "400px", height: "350px"  }} />
 
                 </Grid>
             </Grid>

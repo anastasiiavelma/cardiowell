@@ -43,7 +43,7 @@ export const Registration = () => {
         <Paper classes={{ root: styles.root }}>
 
             <div className={styles.avatar}>
-                <img style={{ width: 150, height: 150 }} src="avatar.png" />
+                <img style={{ width: 150, height: 150 }} src="images/avatar.png" />
             </div>
             <Typography classes={{ root: styles.title }} variant="h6">
                 Create your account

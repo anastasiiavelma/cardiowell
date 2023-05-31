@@ -39,7 +39,7 @@ export const Login = () => {
 
     return (
         <Paper classes={{ root: styles.root }}>
-            <img style={{ width: 180, height: 140, marginLeft: '110px' }} src="doctor1.png" />
+            <img style={{ width: 180, height: 140, marginLeft: '110px' }} src="images/doctor1.png" />
             <Typography classes={{ root: styles.title }} variant="h6">
                 Nice to meet you again!
                  Please, <span style={{ color: '#ff6700' }}>login</span>
