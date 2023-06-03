@@ -1,5 +1,6 @@
 import 'package:cardiowell/models/note.dart';
 import 'package:cardiowell/models/post.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -29,4 +30,16 @@ Future<List<Post>> fetchPosts() async {
   } else {
     throw Exception('Failed to post');
   }
+}
+
+ImageProvider getImage(String imageName) {
+  String imageUrl = 'http://10.0.2.2:5000$imageName';
+  ImageProvider imageProvider;
+  try {
+    imageProvider = NetworkImage(imageUrl);
+  } catch (error) {
+    imageProvider = const AssetImage('assets/images/default.jpg');
+  }
+
+  return imageProvider;
 }

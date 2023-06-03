@@ -1,6 +1,10 @@
+import 'package:cardiowell/components/expand_text.dart';
 import 'package:cardiowell/models/post.dart';
 import 'package:cardiowell/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -33,7 +37,14 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Posts'),
+        title: Text(
+          "Posts",
+          style: GoogleFonts.poppins(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: HexColor("#4f4f4f"),
+          ),
+        ),
       ),
       body: ListView.builder(
         itemCount: posts.length,
@@ -64,8 +75,8 @@ class _PostScreenState extends State<PostScreen> {
                     height: 200, // Adjust the height as needed
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(post.imageUrl),
-                        fit: BoxFit.cover,
+                        image: getImage(post.imageUrl),
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -77,13 +88,15 @@ class _PostScreenState extends State<PostScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 8.0),
                   Text(
-                    post.textInfo,
+                    DateFormat('MM-dd-yyyy').format(post.createdAt),
                     style: const TextStyle(
-                      color: Colors.grey,
+                      fontSize: 9.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 8.0),
+                  ExpandableTextWidget(text: post.textInfo),
                 ],
               ),
             ),
