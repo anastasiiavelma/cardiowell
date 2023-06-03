@@ -16,7 +16,8 @@ import multer from "multer";
 import * as QuizController from "./controllers/QuizController.mjs";
 import * as NoteController from "./controllers/NoteController.mjs";
 import * as MedicalCardController from "./controllers/MedicalCardController.mjs";
-
+import * as DeviceControllers from "./controllers/DeviceControllers/DeviceControllers.mjs";
+import * as DeviceResultControllers from "./controllers/DeviceControllers/DeviceResultControllers.mjs";
 mongoose
   .connect(
     "mongodb+srv://admin:admin123@cluster0.cwd0bau.mongodb.net/cardiowell?retryWrites=true&w=majority"
@@ -83,6 +84,10 @@ app.get("/notes/:id", checkAuth, NoteController.getOne);
 app.post("/notes", checkAuth, notesCreateValidation, NoteController.create);
 app.delete("/notes/:id", checkAuth, NoteController.remove);
 app.patch("/notes/:id", checkAuth, NoteController.update);
+
+app.post('/add-device', DeviceControllers.devicePost)
+app.delete('/add-device/:id', DeviceControllers.deviceDelete)
+app.post('/device-result', DeviceResultControllers.deviceResultPost)
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
