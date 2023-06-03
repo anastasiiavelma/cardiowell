@@ -1,5 +1,6 @@
 import 'package:cardiowell/screens/note_detail_screen.dart';
 import 'package:cardiowell/screens/note_screen.dart';
+import 'package:cardiowell/screens/post_screen.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       case 0:
         return NotesScreen(userId: widget.userId);
       case 1:
-        return const NoteDetail();
+        return const PostScreen();
       case 2:
         return const NoteDetail();
       case 3:
