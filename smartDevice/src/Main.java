@@ -17,6 +17,7 @@ class SmartEmulator {
     private static final String FILE_PATH = "pulse.txt";
 
 
+
     public static void main(String[] args) {
 
         Thread run = new Thread(new Runnable() {
@@ -84,9 +85,16 @@ class SmartEmulator {
 
     private static void storeLocally() {
         try {
-            String fileName = "pulse.txt";
-            FileWriter writer = new FileWriter(fileName, true);
 
+            String fileName = "pulse.txt";
+            File file = new File(fileName);
+            boolean fileExists = file.exists();
+
+            FileWriter writer = new FileWriter(fileName, true);
+            // Если файл не существует, добавляем заголовок
+            if (!fileExists) {
+                writer.write("Pulse Sensor Value Timestamp SentToBackend\n");
+            }
             writer.write(pulseSensorValue + " " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " " + "false" + "\n");
             writer.close();
 

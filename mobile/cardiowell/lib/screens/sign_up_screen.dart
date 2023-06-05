@@ -39,6 +39,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       print(jsonResponse['status']);
       if (response.statusCode == 200) {
         var userId = jsonResponse['_id'];
+
         // ignore: use_build_context_synchronously
         Navigator.push(
             context,
@@ -202,14 +203,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         const EdgeInsets.fromLTRB(25, 0, 0, 0),
                                     child: Row(
                                       children: [
-                                        Text("Don't have an account?",
+                                        Text("Do you have an account?",
                                             style: GoogleFonts.poppins(
                                               fontSize: 15,
                                               color: HexColor("#8d8d8d"),
                                             )),
                                         TextButton(
                                           child: Text(
-                                            "Sign Up",
+                                            "Sign In",
                                             style: GoogleFonts.poppins(
                                               fontSize: 15,
                                               color: HexColor("#44564a"),

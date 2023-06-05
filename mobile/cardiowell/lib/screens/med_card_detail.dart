@@ -1,99 +1,103 @@
-import 'package:cardiowell/models/note.dart';
-import 'package:cardiowell/services/api_service.dart';
+import 'package:cardiowell/models/med_cards.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:uuid/uuid.dart';
 
-class NoteScreenDetail extends StatefulWidget {
+class MedCardScreenDetail extends StatefulWidget {
   final String userId;
   final bool isUpdate;
-  final Note? note;
-  const NoteScreenDetail(
-      {Key? key, required this.isUpdate, this.note, required this.userId})
+  final MedicalCard? medCard;
+  const MedCardScreenDetail(
+      {Key? key, required this.isUpdate, this.medCard, required this.userId})
       : super(key: key);
 
   @override
-  _NoteScreenDetailState createState() => _NoteScreenDetailState();
+  _MedCardScreenDetailState createState() => _MedCardScreenDetailState();
 }
 
-class _NoteScreenDetailState extends State<NoteScreenDetail> {
-  TextEditingController title = TextEditingController();
-  TextEditingController textInfo = TextEditingController();
-  TextEditingController pulse = TextEditingController();
-  TextEditingController bloodPressure = TextEditingController();
-  TextEditingController oxygenLevel = TextEditingController();
-  TextEditingController idUser = TextEditingController();
+class _MedCardScreenDetailState extends State<MedCardScreenDetail> {
+  TextEditingController age = TextEditingController();
+  TextEditingController birth = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
+  TextEditingController address = TextEditingController();
+  TextEditingController weight = TextEditingController();
+  TextEditingController dateOfDiseaseOnset = TextEditingController();
+  TextEditingController performedOperations = TextEditingController();
+  TextEditingController bloodType = TextEditingController();
+  TextEditingController diagnosis = TextEditingController();
+  TextEditingController diseaseSeverity = TextEditingController();
+  TextEditingController allergies = TextEditingController();
   FocusNode noteFocus = FocusNode(); // Declare the noteFocus variable
 
-  Future<void> addNewNote() async {
-    print(widget.userId);
-    final userId = widget.userId;
-    Note newNote = Note(
-      title: title.text,
-      pulse: pulse.text,
-      bloodPressure: bloodPressure.text,
-      oxygenLevel: oxygenLevel.text,
-      textInfo: textInfo.text,
-      id: const Uuid().v1(),
-      createdAt: DateTime.now(),
-      user: userId,
-      updatedAt: DateTime.now(),
-    );
+  // Future<void> addNewCard() async {
+  //   print(widget.userId);
+  //   final userId = widget.userId;
+  //   Note newNote = Note(
+  //     title: title.text,
+  //     pulse: pulse.text,
+  //     bloodPressure: bloodPressure.text,
+  //     oxygenLevel: oxygenLevel.text,
+  //     textInfo: textInfo.text,
+  //     id: const Uuid().v1(),
+  //     createdAt: DateTime.now(),
+  //     user: userId,
+  //     updatedAt: DateTime.now(),
+  //   );
 
-    try {
-      await addNote(newNote, userId);
-      // Note added successfully
-      print('Note added successfully');
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-    } catch (e) {
-      // Failed to add note
-      print('Failed to add note: $e');
-      // Handle the error or show an error message
-    }
-  }
+  //   try {
+  //     await addNote(newNote, userId);
+  //     // Note added successfully
+  //     print('Note added successfully');
+  //     // ignore: use_build_context_synchronously
+  //     Navigator.pop(context);
+  //   } catch (e) {
+  //     // Failed to add note
+  //     print('Failed to add note: $e');
+  //     // Handle the error or show an error message
+  //   }
+  // }
 
-  Future<void> updateNote() async {
-    if (widget.note == null) return;
+  // Future<void> updateNote() async {
+  //   if (widget.note == null) return;
 
-    Note updatedNote = Note(
-      title: title.text,
-      pulse: pulse.text,
-      bloodPressure: bloodPressure.text,
-      oxygenLevel: oxygenLevel.text,
-      textInfo: textInfo.text,
-      user: widget.userId,
-      id: widget.note!.id,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
+  //   Note updatedNote = Note(
+  //     title: title.text,
+  //     pulse: pulse.text,
+  //     bloodPressure: bloodPressure.text,
+  //     oxygenLevel: oxygenLevel.text,
+  //     textInfo: textInfo.text,
+  //     user: widget.userId,
+  //     id: widget.note!.id,
+  //     createdAt: DateTime.now(),
+  //     updatedAt: DateTime.now(),
+  //   );
 
-    try {
-      await updatesNote(widget.note!.id, updatedNote, widget.userId);
-      // Note updated successfully
-      print('Note updated successfully');
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-    } catch (e) {
-      // Failed to update note
-      print('Failed to update note: $e');
-      // Handle the error or show an error message
-    }
-  }
+  //   try {
+  //     await updatesNote(widget.note!.id, updatedNote, widget.userId);
+  //     // Note updated successfully
+  //     print('Note updated successfully');
+  //     // ignore: use_build_context_synchronously
+  //     Navigator.pop(context);
+  //   } catch (e) {
+  //     // Failed to update note
+  //     print('Failed to update note: $e');
+  //     // Handle the error or show an error message
+  //   }
+  // }
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    if (widget.isUpdate && widget.note != null) {
-      title.text = widget.note!.title;
-      textInfo.text = widget.note!.textInfo;
-      pulse.text = widget.note!.pulse;
-      bloodPressure.text = widget.note!.bloodPressure;
-      oxygenLevel.text = widget.note!.oxygenLevel;
-    }
-  }
+  //   if (widget.isUpdate && widget.note != null) {
+  //     title.text = widget.note!.title;
+  //     textInfo.text = widget.note!.textInfo;
+  //     pulse.text = widget.note!.pulse;
+  //     bloodPressure.text = widget.note!.bloodPressure;
+  //     oxygenLevel.text = widget.note!.oxygenLevel;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -110,11 +114,11 @@ class _NoteScreenDetailState extends State<NoteScreenDetail> {
         actions: [
           IconButton(
             onPressed: () {
-              if (widget.isUpdate) {
-                updateNote();
-              } else {
-                addNewNote();
-              }
+              // if (widget.isUpdate) {
+              //   updateNote();
+              // } else {
+              //   addNewNote();
+              // }
             },
             icon: const Icon(Icons.check),
           ),
@@ -137,7 +141,7 @@ class _NoteScreenDetailState extends State<NoteScreenDetail> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextField(
-                    controller: title,
+                    controller: age,
                     autofocus: (widget.isUpdate == true) ? false : true,
                     onSubmitted: (val) {
                       if (val != "") {
@@ -154,7 +158,7 @@ class _NoteScreenDetailState extends State<NoteScreenDetail> {
                     ),
                   ),
                   TextField(
-                    controller: pulse,
+                    controller: bloodType,
                     maxLines: null,
                     style: const TextStyle(fontSize: 17),
                     decoration: InputDecoration(
@@ -168,7 +172,7 @@ class _NoteScreenDetailState extends State<NoteScreenDetail> {
                     ),
                   ),
                   TextField(
-                    controller: bloodPressure,
+                    controller: allergies,
                     maxLines: null,
                     style: const TextStyle(fontSize: 17),
                     decoration: InputDecoration(
@@ -182,7 +186,7 @@ class _NoteScreenDetailState extends State<NoteScreenDetail> {
                     ),
                   ),
                   TextField(
-                    controller: oxygenLevel,
+                    controller: dateOfDiseaseOnset,
                     maxLines: null,
                     style: const TextStyle(fontSize: 17),
                     decoration: InputDecoration(
@@ -197,7 +201,7 @@ class _NoteScreenDetailState extends State<NoteScreenDetail> {
                   ),
                   Flexible(
                     child: TextField(
-                      controller: textInfo,
+                      controller: birth,
                       maxLines: null,
                       style: const TextStyle(fontSize: 20),
                       decoration: const InputDecoration(

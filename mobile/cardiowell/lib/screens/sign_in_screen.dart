@@ -7,7 +7,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
-
 import '../components/custom_button.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -28,15 +27,18 @@ class _SignInScreenState extends State<SignInScreen> {
         "email": _emailController.text,
         "password": _passwordController.text
       };
-      var response = await http.post(
-          Uri.parse('http://10.0.2.2:5000/auth/login'),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode(regBody));
+      var response =
+          await http.post(Uri.parse('http://10.0.2.2:5000/auth/login'),
+              headers: {
+                'Content-type': 'application/json',
+              },
+              body: jsonEncode(regBody));
       print(response.body);
       var jsonResponse = jsonDecode(response.body);
       print(jsonResponse['status']);
       if (response.statusCode == 200) {
         var userId = jsonResponse['_id'];
+
         // ignore: use_build_context_synchronously
         Navigator.push(
             context,

@@ -2,7 +2,7 @@ import MedicalCardModel from '../models/MedicalCard.mjs';
 
 export const getAll = async (req, res) => {
     try {
-        const medCard = await MedicalCardModel.find()
+        const medCard = await MedicalCardModel.find().populate('user')
 
         res.json(medCard)
 
@@ -19,7 +19,7 @@ export const getOne = async (req, res) => {
         const medCardId = req.params.id;
         const doc = await MedicalCardModel.findOne({
             _id: medCardId,
-        });
+        }).populate('user');
 
         if (!doc) {
             return res.status(404).json({
@@ -43,7 +43,7 @@ export const remove = async (req, res) => {
 
         const doc = await MedicalCardModel.findOneAndDelete({
             _id: medCardId,
-        });
+        }).populate('user');
 
         if (!doc) {
             return res.status(404).json({
@@ -67,7 +67,7 @@ export const update = async (req, res) => {
     try {
         const medCardId = req.params.id;
 
-        const medCard = await MedicalCardModel.findOneAndUpdate({ _id: medCardId }, req.body, { new: true })
+        const medCard = await MedicalCardModel.findOneAndUpdate({ _id: medCardId }, req.body, { new: true }).populate('user')
 
         res.json({
             success: true,
@@ -86,7 +86,7 @@ export const create = async (req, res) => {
     const userId = req.userId;
 
     try {
-        const medicalCard = new MedicalCardModel({
+        const medicalCard = await new MedicalCardModel({
             age: body.age,
             birth: body.birth,
             phoneNumber: body.phoneNumber,
@@ -101,7 +101,7 @@ export const create = async (req, res) => {
             diseaseSeverity: body.diseaseSeverity,
             allergies: body.allergies,
             user: userId,
-        });
+        }).populate('user');
         const savedMedicalCard = await medicalCard.save();
 
         res.status(201).json(savedMedicalCard);

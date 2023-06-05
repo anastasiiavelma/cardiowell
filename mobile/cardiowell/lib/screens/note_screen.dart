@@ -1,4 +1,5 @@
 import 'package:cardiowell/models/note.dart';
+import 'package:cardiowell/screens/note_detail_screen.dart';
 import 'package:cardiowell/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,6 +35,17 @@ class _NotesScreenState extends State<NotesScreen> {
     }
   }
 
+  void _deleteNoteAtIndex(int index) {
+    final note = notes[index];
+    deleteNote(note.id).then((_) {
+      setState(() {
+        notes.removeAt(index);
+      });
+    }).then((_) {
+      fetchNotes(); // Fetch notes after the deletion is completed
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,30 +62,62 @@ class _NotesScreenState extends State<NotesScreen> {
       body: ListView.builder(
         itemCount: notes.length,
         itemBuilder: (context, index) {
-          final note = notes[index];
-          return Container(
-            decoration: BoxDecoration(
-              color: HexColor("#f0f3f1"),
-              borderRadius: BorderRadius.circular(25.0),
+          // final note = notes[index];
+          final note = notes.reversed.toList()[index];
+          return Dismissible(
+            key: Key(note.id), // Use a unique key for each note
+            direction: DismissDirection.endToStart, // Swipe direction
+            background: Container(
+              color: HexColor("#ff6700"),
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: const Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
             ),
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: ListTile(
-              title: Text(note.title),
-              subtitle: Text(note.textInfo),
-              trailing: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(DateFormat('MM-dd-yyyy').format(note.createdAt),
-                      style: TextStyle(
-                          color: HexColor("#ff6700"),
-                          fontWeight: FontWeight.bold)),
-                  Text('Oxygen Level: ${note.oxygenLevel}',
-                      style: TextStyle(color: HexColor("#4f4f4f"))),
-                  Text('Pulse: ${note.pulse}',
-                      style: TextStyle(color: HexColor("#4f4f4f"))),
-                ],
+            onDismissed: (direction) {
+              _deleteNoteAtIndex(index);
+            },
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NoteScreenDetail(
+                      isUpdate: true,
+                      note: note,
+                      userId: note.user,
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: HexColor("#f0f3f1"),
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                padding: const EdgeInsets.all(8.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: ListTile(
+                  title: Text(note.title),
+                  subtitle: Text(note.textInfo),
+                  trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(DateFormat('MM-dd-yyyy').format(note.createdAt!),
+                          style: TextStyle(
+                              color: HexColor("#ff6700"),
+                              fontWeight: FontWeight.bold)),
+                      Text('Oxygen Level: ${note.oxygenLevel}',
+                          style: TextStyle(color: HexColor("#4f4f4f"))),
+                      Text('Pulse: ${note.pulse}',
+                          style: TextStyle(color: HexColor("#4f4f4f"))),
+                    ],
+                  ),
+                ),
               ),
             ),
           );
@@ -81,7 +125,15 @@ class _NotesScreenState extends State<NotesScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your desired functionality here
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NoteScreenDetail(
+                isUpdate: false,
+                userId: widget.userId,
+              ),
+            ),
+          );
         },
         backgroundColor: HexColor("#ff6700"),
         shape: const CircleBorder(),

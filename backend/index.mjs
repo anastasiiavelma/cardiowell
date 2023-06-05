@@ -81,9 +81,10 @@ app.patch("/med-cards/:id", checkAuth, MedicalCardController.update);
 
 app.get("/notes", NoteController.getAll);
 app.get("/notes/:id", checkAuth, NoteController.getOne);
-app.post("/notes", checkAuth, notesCreateValidation, NoteController.create);
-app.delete("/notes/:id", checkAuth, NoteController.remove);
-app.patch("/notes/:id", checkAuth, NoteController.update);
+app.post("/notes", checkAuth, NoteController.create);
+app.delete("/notes/:id",  NoteController.remove);
+app.patch("/notes/:id",  NoteController.update);
+//app.get("/note/:id", NoteController.getUserNotes);
 
 app.post('/add-device', DeviceControllers.devicePost)
 app.delete('/add-device/:id', DeviceControllers.deviceDelete)

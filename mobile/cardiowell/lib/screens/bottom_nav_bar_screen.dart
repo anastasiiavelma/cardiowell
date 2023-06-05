@@ -1,4 +1,4 @@
-import 'package:cardiowell/screens/note_detail_screen.dart';
+import 'package:cardiowell/screens/med_card_screen.dart';
 import 'package:cardiowell/screens/note_screen.dart';
 import 'package:cardiowell/screens/post_screen.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
@@ -9,7 +9,7 @@ import 'package:hexcolor/hexcolor.dart';
 class BottomNavBar extends StatefulWidget {
   final String userId;
 
-  BottomNavBar({required this.userId});
+  const BottomNavBar({super.key, required this.userId});
 
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -18,6 +18,11 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _page = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +88,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
       case 1:
         return const PostScreen();
       case 2:
-        return const NoteDetail();
+        return MedCardScreen(userId: widget.userId);
       case 3:
-        return const NoteDetail();
+        return const PostScreen();
       default:
         return const SizedBox();
     }

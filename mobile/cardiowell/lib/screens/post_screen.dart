@@ -25,9 +25,12 @@ class _PostScreenState extends State<PostScreen> {
   Future<void> fetchAllPosts() async {
     try {
       final List<Post> fetchedPosts = await fetchPosts();
-      setState(() {
-        posts = fetchedPosts;
-      });
+      if (mounted) {
+        // Check if the widget is still mounted
+        setState(() {
+          posts = fetchedPosts;
+        });
+      }
     } catch (error) {
       print(error);
     }
@@ -53,7 +56,6 @@ class _PostScreenState extends State<PostScreen> {
           return InkWell(
             onTap: () {
               // Handle post click event here
-              // You can navigate to the full article screen or perform any other desired action
             },
             child: Container(
               decoration: BoxDecoration(
@@ -88,6 +90,7 @@ class _PostScreenState extends State<PostScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 8.0),
                   Text(
                     DateFormat('MM-dd-yyyy').format(post.createdAt),
                     style: const TextStyle(

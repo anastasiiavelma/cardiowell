@@ -1,8 +1,9 @@
 import NoteModel from '../models/Note.mjs';
+import mongoose from "mongoose";
 
 export const getAll = async (req, res) => {
     try {
-        const notes = await NoteModel.find().populate('user').exec();
+        const notes = await NoteModel.find().populate('user');
 
         res.json(notes);
     } catch (err) {
@@ -36,7 +37,7 @@ export const remove = async (req, res) => {
     try {
         const noteId = req.params.id;
 
-        const doc = await NoteModel.findOneAndDelete({ _id: noteId });
+        const doc = await NoteModel.findOneAndDelete({ _id: noteId }).populate('user');
 
         if (!doc) {
             return res.status(404).json({
@@ -56,7 +57,7 @@ export const remove = async (req, res) => {
 }
 export const create = async (req, res) => {
     try {
-        const doc = new NoteModel({
+        const doc = await new NoteModel({
             title: req.body.title,
             pulse: req.body.pulse,
             bloodPressure: req.body.bloodPressure,
@@ -65,7 +66,7 @@ export const create = async (req, res) => {
             photoUrl: req.body.photoUrl,
             user: req.userId,
 
-        });
+        }).populate('user');
 
         const note = await doc.save();
 
@@ -104,3 +105,14 @@ export const update = async (req, res) => {
         });
     }
 }
+export const getUserNotes = async (req, res) => {
+    try {
+        const userId = req.params.id; // Convert the user ID to an ObjectId
+        const notes = await NoteModel.find({ user: userId });
+        res.status(200).json(notes);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch user notes' });
+    }
+};
+
