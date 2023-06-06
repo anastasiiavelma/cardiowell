@@ -46,15 +46,13 @@ class _NotesScreenState extends State<NotesScreen> {
     }
   }
 
-  void _deleteNoteAtIndex(int index) {
+  void _deleteNoteAtIndex(int index) async {
     final note = notes[index];
-    deleteNote(note.id).then((_) {
-      setState(() {
-        notes.removeAt(index);
-      });
-    }).then((_) {
-      fetchNotes(); // Fetch notes after the deletion is completed
+    await deleteNote(note.id);
+    setState(() {
+      notes.removeAt(index);
     });
+    await fetchNotes();
   }
 
   @override
@@ -76,7 +74,7 @@ class _NotesScreenState extends State<NotesScreen> {
           // final note = notes[index];
           final note = notes.reversed.toList()[index];
           return Dismissible(
-            key: Key(note.id), // Use a unique key for each note
+            key: UniqueKey(), // Use a unique key for each note
             direction: DismissDirection.endToStart, // Swipe direction
             background: Container(
               color: HexColor("#ff6700"),

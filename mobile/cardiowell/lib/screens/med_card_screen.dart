@@ -102,7 +102,7 @@ class _MedCardScreenState extends State<MedCardScreen> {
                 itemBuilder: (context, index) {
                   final card = cards[index];
                   return Dismissible(
-                      key: Key(card.id),
+                      key: UniqueKey(),
                       onDismissed: (direction) {
                         if (direction == DismissDirection.endToStart) {
                           _deleteNoteAtIndex(index);
@@ -117,7 +117,8 @@ class _MedCardScreenState extends State<MedCardScreen> {
                           color: Colors.white,
                         ),
                       ),
-                      child: _buildCardWidget(card));
+                      child:
+                          SingleChildScrollView(child: _buildCardWidget(card)));
                 },
               ),
             if (cards.isEmpty)

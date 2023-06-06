@@ -64,20 +64,20 @@ app.get("/all-post", PostController.getPostByDay);
 
 app.get("/quizzes", QuizController.getAll);
 app.get("/quizzes/:id", checkAuth, QuizController.getOne);
-app.post("/quizzes", checkAuth, QuizController.create);
-app.delete("/quizzes/:id", checkAuth, QuizController.remove);
-app.patch("/quizzes/:id", checkAuth, QuizController.update);
+app.post("/quizzes", QuizController.create);
+app.delete("/quizzes/:id",  QuizController.remove);
+app.patch("/quizzes/:id",  QuizController.update);
 
 app.get("/med-cards", MedicalCardController.getAll);
 app.get("/med-cards/:id", checkAuth, MedicalCardController.getOne);
 app.post(
   "/med-cards",
-  checkAuth,
+    checkAuth,
   MedicalCardCreateValidation,
   MedicalCardController.create
 );
-app.delete("/med-cards/:id", checkAuth, MedicalCardController.remove);
-app.patch("/med-cards/:id", checkAuth, MedicalCardController.update);
+app.delete("/med-cards/:id",  MedicalCardController.remove);
+app.patch("/med-cards/:id",  MedicalCardController.update);
 
 app.get("/notes", NoteController.getAll);
 app.get("/notes/:id", checkAuth, NoteController.getOne);
