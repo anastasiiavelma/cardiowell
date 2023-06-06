@@ -57,6 +57,22 @@ Future<void> deleteNote(String notesId) async {
   }
 }
 
+Future<void> deleteCard(String cardId) async {
+  try {
+    final response = await http.delete(
+      Uri.parse('http://10.0.2.2:5000/med-cards/$cardId'),
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      debugPrint('card deleted');
+    } else {
+      debugPrint('Failed to delete card: ${response.statusCode}');
+    }
+  } catch (e) {
+    debugPrint('Error occurred while deleting card: $e');
+  }
+}
+
 Future<List<Post>> fetchPosts() async {
   final url = Uri.parse('http://10.0.2.2:5000/posts');
   final response = await http.get(url);
@@ -120,12 +136,12 @@ Future<void> addMedCards(MedicalCard card, String userId) async {
   final response = await http.post(url, headers: headers, body: body);
   print('Response status code: ${response.statusCode}');
   print('Response body: ${response.body}');
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200 && response.statusCode == 201) {
     // Note added successfully
-    print('Note added successfully');
+    print('MedCards added successfully');
   } else {
     // Failed to add note
-    throw Exception('Failed to add note');
+    print('Failed to add card');
   }
 }
 

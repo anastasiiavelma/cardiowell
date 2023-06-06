@@ -49,12 +49,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
               color: Colors.white,
             ),
           ),
-          CurvedNavigationBarItem(
-            child: Icon(
-              Icons.settings,
-              color: Colors.white,
-            ),
-          ),
         ],
         color: HexColor("#003366"),
         buttonBackgroundColor: HexColor("#ff6700"),
@@ -89,8 +83,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         return const PostScreen();
       case 2:
         return MedCardScreen(userId: widget.userId);
-      case 3:
-        return const PostScreen();
       default:
         return const SizedBox();
     }

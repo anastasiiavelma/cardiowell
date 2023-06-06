@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cardiowell/models/med_cards.dart';
 import 'package:cardiowell/screens/med_card_detail.dart';
 import 'package:cardiowell/services/api_service.dart';
@@ -16,11 +18,20 @@ class MedCardScreen extends StatefulWidget {
 
 class _MedCardScreenState extends State<MedCardScreen> {
   List<MedicalCard> cards = [];
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
     fetchCards();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) => fetchCards());
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer when the screen is disposed to avoid memory leaks
+    _timer.cancel();
+    super.dispose();
   }
 
   Future<void> fetchCards() async {
@@ -35,14 +46,24 @@ class _MedCardScreenState extends State<MedCardScreen> {
     }
   }
 
-// ignore: non_constant_identifier_names
+  void _deleteNoteAtIndex(int index) async {
+    final card = cards[index];
+    try {
+      await deleteCard(card.id);
+      setState(() {
+        cards.removeAt(index);
+      });
+    } catch (error) {
+      print(error);
+    }
+  }
+
   void NavigateToCreateScreen() {
     // Add void return type
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => MedCardScreenDetail(
-          isUpdate: false,
           userId: widget.userId,
         ),
       ),
@@ -75,7 +96,30 @@ class _MedCardScreenState extends State<MedCardScreen> {
               ),
             ),
             if (cards.isNotEmpty)
-              ...cards.map((card) => _buildCardWidget(card)).toList(),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: cards.length,
+                itemBuilder: (context, index) {
+                  final card = cards[index];
+                  return Dismissible(
+                      key: Key(card.id),
+                      onDismissed: (direction) {
+                        if (direction == DismissDirection.endToStart) {
+                          _deleteNoteAtIndex(index);
+                        }
+                      },
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20.0),
+                        color: HexColor("#ff6700"),
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: _buildCardWidget(card));
+                },
+              ),
             if (cards.isEmpty)
               const Center(child: Text('No medical card found.')),
             const SizedBox(
@@ -91,7 +135,7 @@ class _MedCardScreenState extends State<MedCardScreen> {
         backgroundColor: HexColor("#ff6700"),
         shape: const CircleBorder(),
         child: const Icon(
-          Icons.edit,
+          Icons.add,
           color: Colors.white,
         ),
       ),
@@ -124,7 +168,7 @@ class _MedCardScreenState extends State<MedCardScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  card.userName,
+                  card.userName!,
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     color: Colors.grey[700],
@@ -147,6 +191,22 @@ class _MedCardScreenState extends State<MedCardScreen> {
             ),
             Text(
               card.birth,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.grey[700],
+              ),
+            ),
+            const SizedBox(height: 15),
+            Text(
+              'Age',
+              style: TextStyle(
+                fontSize: 16,
+                color: HexColor("#4f4f4f"),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              card.age,
               style: GoogleFonts.poppins(
                 fontSize: 14,
                 color: Colors.grey[700],

@@ -12,8 +12,10 @@ class MedicalCard {
   final String diagnosis;
   final String diseaseSeverity;
   final String allergies;
-  final String user;
-  final String userName;
+  String user;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? userName;
 
   MedicalCard({
     required this.userName,
@@ -31,26 +33,29 @@ class MedicalCard {
     required this.diseaseSeverity,
     required this.allergies,
     required this.user,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory MedicalCard.fromJson(Map<String, dynamic> json) {
     return MedicalCard(
-      age: json['age'],
-      birth: json['birth'],
-      phoneNumber: json['phoneNumber'],
-      address: json['address'],
-      weight: json['weight'],
-      dateOfDiseaseOnset: json['dateOfDiseaseOnset'],
-      performedOperations: json['performedOperations'],
-      performedProcedures: json['performedProcedures'],
-      bloodType: json['bloodType'],
-      diagnosis: json['diagnosis'],
-      id: json['_id'],
-      diseaseSeverity: json['diseaseSeverity'],
-      allergies: json['allergies'],
-      user: json['user']['_id'],
-      userName: json['user']['fullName'],
-    );
+        age: json['age'],
+        birth: json['birth'],
+        phoneNumber: json['phoneNumber'],
+        address: json['address'],
+        weight: json['weight'],
+        dateOfDiseaseOnset: json['dateOfDiseaseOnset'],
+        performedOperations: json['performedOperations'],
+        performedProcedures: json['performedProcedures'],
+        bloodType: json['bloodType'],
+        diagnosis: json['diagnosis'],
+        id: json['_id'],
+        diseaseSeverity: json['diseaseSeverity'],
+        allergies: json['allergies'],
+        user: json['user']['_id'],
+        userName: json['user']['fullName'],
+        createdAt: DateTime.tryParse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']));
   }
 
   Map<String, dynamic> toJson() {
@@ -72,6 +77,8 @@ class MedicalCard {
         '_id': user,
         'fullName': userName,
       },
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
     };
   }
 }

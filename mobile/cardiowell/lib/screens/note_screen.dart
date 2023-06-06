@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cardiowell/models/note.dart';
 import 'package:cardiowell/screens/note_detail_screen.dart';
 import 'package:cardiowell/services/api_service.dart';
@@ -17,11 +19,20 @@ class NotesScreen extends StatefulWidget {
 
 class _NotesScreenState extends State<NotesScreen> {
   List<Note> notes = [];
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
     fetchNotes();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) => fetchNotes());
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer when the screen is disposed to avoid memory leaks
+    _timer.cancel();
+    super.dispose();
   }
 
   Future<void> fetchNotes() async {
