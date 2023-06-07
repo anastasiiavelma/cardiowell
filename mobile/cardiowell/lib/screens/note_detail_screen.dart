@@ -9,8 +9,13 @@ class NoteScreenDetail extends StatefulWidget {
   final String userId;
   final bool isUpdate;
   final Note? note;
+  final String token;
   const NoteScreenDetail(
-      {Key? key, required this.isUpdate, this.note, required this.userId})
+      {Key? key,
+      required this.isUpdate,
+      this.note,
+      required this.userId,
+      required this.token})
       : super(key: key);
 
   @override
@@ -42,7 +47,7 @@ class _NoteScreenDetailState extends State<NoteScreenDetail> {
     );
 
     try {
-      await addNote(newNote, userId);
+      await addNote(newNote, userId, widget.token);
       // Note added successfully
       print('Note added successfully');
       // ignore: use_build_context_synchronously

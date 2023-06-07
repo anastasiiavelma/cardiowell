@@ -8,8 +8,9 @@ import 'package:hexcolor/hexcolor.dart';
 
 class BottomNavBar extends StatefulWidget {
   final String userId;
+  final String token;
 
-  const BottomNavBar({super.key, required this.userId});
+  const BottomNavBar({super.key, required this.userId, required this.token});
 
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -78,11 +79,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget _getPageWidget(int page) {
     switch (page) {
       case 0:
-        return NotesScreen(userId: widget.userId);
+        return NotesScreen(userId: widget.userId, token: widget.token);
       case 1:
         return const PostScreen();
       case 2:
-        return MedCardScreen(userId: widget.userId);
+        return MedCardScreen(userId: widget.userId, token: widget.token);
       default:
         return const SizedBox();
     }

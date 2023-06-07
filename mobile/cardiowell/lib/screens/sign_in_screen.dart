@@ -38,13 +38,15 @@ class _SignInScreenState extends State<SignInScreen> {
       print(jsonResponse['status']);
       if (response.statusCode == 200) {
         var userId = jsonResponse['_id'];
-
+        var token = jsonResponse['token'];
+        print(token);
         // ignore: use_build_context_synchronously
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => BottomNavBar(
                       userId: userId,
+                      token: token,
                     )));
       } else {
         print("SomeThing Went Wrong");

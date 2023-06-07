@@ -1,16 +1,19 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:cardiowell/models/med_cards.dart';
 import 'package:cardiowell/screens/med_card_detail.dart';
 import 'package:cardiowell/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:path_provider/path_provider.dart';
 
 class MedCardScreen extends StatefulWidget {
   final String userId;
-
-  const MedCardScreen({Key? key, required this.userId}) : super(key: key);
+  final String token;
+  const MedCardScreen({super.key, required this.userId, required this.token});
 
   @override
   _MedCardScreenState createState() => _MedCardScreenState();
@@ -32,6 +35,48 @@ class _MedCardScreenState extends State<MedCardScreen> {
     // Cancel the timer when the screen is disposed to avoid memory leaks
     _timer.cancel();
     super.dispose();
+  }
+
+  Future<void> saveAsPDF() async {
+    final pdf = pw.Document();
+
+    for (final card in cards) {
+      pdf.addPage(pw.Page(
+          pageFormat: PdfPageFormat.a4,
+          build: (pw.Context context) {
+            return pw.Column(children: [
+              pw.Container(
+                margin: const pw.EdgeInsets.only(bottom: 10),
+                child: pw.Text(
+                  'HELLO, ${card.userName}, it`s your med-cards',
+                  style: pw.TextStyle(
+                      fontSize: 40, fontWeight: pw.FontWeight.bold),
+                ),
+              ),
+              _buildTextWithLabel('Age:', card.age),
+              _buildTextWithLabel('Birth:', card.birth),
+              _buildTextWithLabel('Weight:', card.weight),
+              _buildTextWithLabel('Phone Number:', card.phoneNumber),
+              _buildTextWithLabel(
+                  'Date of Disease Onset:', card.dateOfDiseaseOnset),
+              _buildTextWithLabel(
+                  'Performed Operations:', card.performedOperations),
+              _buildTextWithLabel('Address:', card.address),
+              _buildTextWithLabel('Blood Type:', card.bloodType),
+              _buildTextWithLabel('Diagnosis:', card.diagnosis),
+              _buildTextWithLabel('Disease Severity:', card.diseaseSeverity),
+              _buildTextWithLabel('Allergies:', card.allergies),
+            ]); // Center
+          }));
+    }
+
+    final directory =
+        (await getExternalStorageDirectories(type: StorageDirectory.downloads))!
+            .first;
+
+    File file = File("${directory.path}/med-card.pdf");
+    await file.writeAsBytes(await pdf.save());
+    print('PDF сохранен по пути: $file');
   }
 
   Future<void> fetchCards() async {
@@ -65,6 +110,7 @@ class _MedCardScreenState extends State<MedCardScreen> {
       MaterialPageRoute(
         builder: (context) => MedCardScreenDetail(
           userId: widget.userId,
+          token: widget.token,
         ),
       ),
     );
@@ -82,6 +128,24 @@ class _MedCardScreenState extends State<MedCardScreen> {
             color: HexColor("#4f4f4f"),
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              saveAsPDF().then((_) {
+                // Показываем всплывающее окно об успешности
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('PDF успешно сохранен'),
+                  ),
+                );
+              }).catchError((error) {
+                // Обработка ошибок при сохранении PDF-файла
+                print('Ошибка при сохранении PDF: $error');
+              });
+            },
+            icon: const Icon(Icons.file_upload),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -118,7 +182,7 @@ class _MedCardScreenState extends State<MedCardScreen> {
                         ),
                       ),
                       child:
-                          SingleChildScrollView(child: _buildCardWidget(card)));
+                          SingleChildScrollView(child: buildCardWidget(card)));
                 },
               ),
             if (cards.isEmpty)
@@ -143,7 +207,7 @@ class _MedCardScreenState extends State<MedCardScreen> {
     );
   }
 
-  Widget _buildCardWidget(MedicalCard card) {
+  Widget buildCardWidget(MedicalCard card) {
     return Card(
       shadowColor: HexColor("#000000"),
       surfaceTintColor: HexColor("#8d8d8d"),
@@ -375,6 +439,25 @@ class _MedCardScreenState extends State<MedCardScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  pw.Widget _buildTextWithLabel(String label, String text) {
+    return pw.Container(
+      margin: const pw.EdgeInsets.only(bottom: 10),
+      child: pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Text(
+            label,
+            style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold),
+          ),
+          pw.Text(
+            text,
+            style: const pw.TextStyle(fontSize: 40),
+          ),
+        ],
       ),
     );
   }

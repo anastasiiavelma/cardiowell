@@ -11,7 +11,9 @@ import 'package:uuid/uuid.dart';
 class MedCardScreenDetail extends StatefulWidget {
   final String userId;
   final MedicalCard? medCard;
-  const MedCardScreenDetail({Key? key, this.medCard, required this.userId})
+  final String token;
+  const MedCardScreenDetail(
+      {Key? key, this.medCard, required this.userId, required this.token})
       : super(key: key);
 
   @override
@@ -56,7 +58,7 @@ class _MedCardScreenDetailState extends State<MedCardScreenDetail> {
     );
 
     try {
-      await addMedCards(newCard, userId);
+      await addMedCards(newCard, userId, widget.token);
       // Note added successfully
       print('newCard added successfully');
       // ignore: use_build_context_synchronously

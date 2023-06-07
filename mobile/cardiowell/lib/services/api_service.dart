@@ -99,13 +99,11 @@ ImageProvider getImage(String imageName) {
   return imageProvider;
 }
 
-Future<void> addNote(Note note, String userId) async {
-  String authToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdjOTQyYzQyNWQ4YmJjNzkxMGMyMjYiLCJpYXQiOjE2ODU5NTYwOTMsImV4cCI6MTY4ODU0ODA5M30.uOXrqTqx5vQBPRliQm46sQCdTcooOp8QabnocG3Mlcg';
+Future<void> addNote(Note note, String userId, String token) async {
   final url = Uri.parse('http://10.0.2.2:5000/notes');
   final headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer $authToken',
+    'Authorization': 'Bearer $token',
   };
 
   final body = jsonEncode(note.toJson());
@@ -122,13 +120,11 @@ Future<void> addNote(Note note, String userId) async {
   }
 }
 
-Future<void> addMedCards(MedicalCard card, String userId) async {
-  String authToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDdjOTQyYzQyNWQ4YmJjNzkxMGMyMjYiLCJpYXQiOjE2ODU5NTYwOTMsImV4cCI6MTY4ODU0ODA5M30.uOXrqTqx5vQBPRliQm46sQCdTcooOp8QabnocG3Mlcg';
+Future<void> addMedCards(MedicalCard card, String userId, String token) async {
   final url = Uri.parse('http://10.0.2.2:5000/med-cards');
   final headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer $authToken',
+    'Authorization': 'Bearer $token',
   };
 
   final body = jsonEncode(card.toJson());

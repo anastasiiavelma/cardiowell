@@ -39,12 +39,15 @@ dependencies:
   email_validator: ^2.1.17
   curved_labeled_navigation_bar: ^2.0.2
   intl: ^0.18.1
+  permission_handler: ^10.3.0
   http: ^1.0.0
   flutter_expandable_text: ^1.0.0
   expandable_text: ^2.3.0
   shared_preferences: ^2.1.1
   get: ^4.6.5
   uuid: ^3.0.7
+  pdf: ^3.10.4
+  flutter_downloader: ^1.10.4
 
 dev_dependencies:
   flutter_test:
