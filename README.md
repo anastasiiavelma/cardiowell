@@ -1,18 +1,17 @@
 <center><h1> Сardiowell 	&#128147;</h1></center>
-Cardiowell is program for people who have chronic disease of the heart. This project includes frontend, backend, IoT and mobile. The frontend includes a dashboard for the administrator to help him manage posts and keep track of statistics. The IoT simulates the heart rate data and sends it to the backend. On mobile, the user can take notes, read posts created by the administrator and keep a medical card. <br>
-An administrator in the admin panel can register and log in, after which he can manage posts, namely edit, add, delete, and view posts. It also has the ability to view statistics about users and posts in the form of graphs. <br>
-In the mobile application, the user can register and log in, after which he can manage his notes, namely: edit, delete, create and view. He can also view posts created by the administrator. The user can also manage his medical card, namely add and delete it.
+Cardiowell is program for people who have chronic disease of the heart. This project includes frontend, backend, IoT and mobile. The frontend includes a dashboard for the administrator to help him manage posts and keep track of statistics. The IoT simulates the heart rate data and sends it to the backend. On mobile, the user can take notes, read posts created by the administrator and keep a medical card. 
 <h3>Backend</h3>
     <li>Node.js + Express.js</li>
     <li>pattern MVC</li>
      <li>MongoDB</li>
+     <li>JWT Bearer authorization</li>
 <h3>Frontend</h3>
     <li>React</li>
     <li>Redux</li>
     <li>Axios</li>
     <h3>Mobile</h3>
     <li>Flutter</li>
-    <li>http</li>
+    <li>Http</li>
     <h3>IoT</h3>
     <li>Java</li>
 </ul>
